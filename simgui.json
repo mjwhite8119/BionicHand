@@ -4,5 +4,25 @@
       "/FMSInfo": "FMSInfo",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
     }
+  },
+  "NetworkTables": {
+    "retained": {
+      "Romi": {
+        "Information": {
+          "open": true
+        },
+        "Status": {
+          "open": true
+        },
+        "open": true
+      }
+    },
+    "transitory": {
+      "LiveWindow": {
+        ".status": {
+          "open": true
+        }
+      }
+    }
   }
 }

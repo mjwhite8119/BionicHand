@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.AutonomousDistance;
-import frc.robot.commands.AutonomousTime;
+import frc.robot.commands.DigitDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
@@ -62,7 +61,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
-    m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
+    // m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
+    m_drivetrain.setDefaultCommand(getDigitsDriveCommand());
 
     // Example of how to use the onboard IO
     Trigger onboardButtonA = new Trigger(m_onboardIO::getButtonAPressed);
@@ -71,9 +71,9 @@ public class RobotContainer {
         .onFalse(new PrintCommand("Button A Released"));
 
     // Setup SmartDashboard options
-    m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
-    m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
-    SmartDashboard.putData(m_chooser);
+    // m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
+    // m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
+    // SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -90,8 +90,16 @@ public class RobotContainer {
    *
    * @return the command to run in teleop
    */
-  public Command getArcadeDriveCommand() {
-    return new ArcadeDrive(
-        m_drivetrain, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(2));
+  // public Command getArcadeDriveCommand() {
+  //   return new ArcadeDrive(
+  //       m_drivetrain, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(2));
+  // }
+
+  public Command getDigitsDriveCommand() {
+    return new DigitDrive(
+        m_drivetrain, () -> -m_controller.getRawAxis(0),
+                      () -> -m_controller.getRawAxis(1), 
+                      () -> -m_controller.getRawAxis(2),
+                      () -> -m_controller.getRawAxis(3));
   }
 }

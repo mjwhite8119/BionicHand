@@ -8,10 +8,12 @@ import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
-public class ArcadeDrive extends CommandBase {
+public class DigitDrive extends CommandBase {
   private final Drivetrain m_drivetrain;
-  private final Supplier<Double> m_xaxisSpeedSupplier;
-  private final Supplier<Double> m_zaxisRotateSupplier;
+  private final Supplier<Double> m_pinkSupplier;
+  private final Supplier<Double> m_ringSupplier;
+  private final Supplier<Double> m_middleSupplier;
+  private final Supplier<Double> m_indexSupplier;
 
   /**
    * Creates a new ArcadeDrive. This command will drive your robot according to the speed supplier
@@ -21,13 +23,18 @@ public class ArcadeDrive extends CommandBase {
    * @param xaxisSpeedSupplier Lambda supplier of forward/backward speed
    * @param zaxisRotateSupplier Lambda supplier of rotational speed
    */
-  public ArcadeDrive(
+  public DigitDrive(
       Drivetrain drivetrain,
-      Supplier<Double> xaxisSpeedSupplier,
-      Supplier<Double> zaxisRotateSupplier) {
+      Supplier<Double> pinkSupplier,
+      Supplier<Double> ringSupplier,
+      Supplier<Double> middleSupplier,
+      Supplier<Double> indexSupplier
+      ) {
     m_drivetrain = drivetrain;
-    m_xaxisSpeedSupplier = xaxisSpeedSupplier;
-    m_zaxisRotateSupplier = zaxisRotateSupplier;
+    m_pinkSupplier = pinkSupplier;
+    m_ringSupplier = ringSupplier;
+    m_middleSupplier = middleSupplier;
+    m_indexSupplier = indexSupplier;
     addRequirements(drivetrain);
   }
 
@@ -38,6 +45,10 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_drivetrain.runPinkMotor(m_pinkSupplier.get());
+    m_drivetrain.runRingMotor(m_ringSupplier.get());
+    m_drivetrain.runMiddleMotor(m_ringSupplier.get());
+    m_drivetrain.runIndexMotor(m_ringSupplier.get());
     // m_drivetrain.arcadeDrive(m_xaxisSpeedSupplier.get(), m_zaxisRotateSupplier.get());
   }
 
@@ -51,3 +62,4 @@ public class ArcadeDrive extends CommandBase {
     return false;
   }
 }
+
