@@ -53,15 +53,15 @@ public class Drivetrain extends SubsystemBase {
     m_pinkMotor.set(speed);
   }
 
-  public void runRingMotor(Double speed) {
-    m_pinkMotor.set(speed);
+  public void runRingMotor(double speed) {
+    m_ringMotor.set(speed);
   }
 
-  public void runMiddleMotor(Double speed) {
+  public void runMiddleMotor(double speed) {
     m_middleMotor.set(speed);
   }
 
-  public void runIndexMotor(Double speed) {
+  public void runIndexMotor(double speed) {
     m_indexMotor.set(speed);
   }
 
