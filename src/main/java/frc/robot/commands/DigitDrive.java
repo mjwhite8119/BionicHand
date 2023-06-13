@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
@@ -45,11 +46,10 @@ public class DigitDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.runPinkMotor(m_pinkSupplier.get());
-    m_drivetrain.runRingMotor(m_ringSupplier.get());
-    m_drivetrain.runMiddleMotor(m_ringSupplier.get());
-    m_drivetrain.runIndexMotor(m_ringSupplier.get());
-    // m_drivetrain.arcadeDrive(m_xaxisSpeedSupplier.get(), m_zaxisRotateSupplier.get());
+    m_drivetrain.runPinkMotor(MathUtil.applyDeadband(m_pinkSupplier.get(), 0.3));
+    m_drivetrain.runRingMotor(MathUtil.applyDeadband(m_ringSupplier.get(), 0.3));
+    m_drivetrain.runMiddleMotor(MathUtil.applyDeadband(m_middleSupplier.get(), 0.3));
+    m_drivetrain.runIndexMotor(MathUtil.applyDeadband(m_indexSupplier.get(), 0.3));
   }
 
   // Called once the command ends or is interrupted.
