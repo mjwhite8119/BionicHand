@@ -4,14 +4,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.sensors.RomiGyro;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Drivetrain extends SubsystemBase {
+public class BionicHand extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
@@ -27,21 +24,8 @@ public class Drivetrain extends SubsystemBase {
   private final Encoder m_leftEncoder = new Encoder(4, 5);
   private final Encoder m_rightEncoder = new Encoder(6, 7);
 
-  // Set up the differential drive controller
-  // private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_pinkMotor, m_ringMotor);
-
-  // Set up the RomiGyro
-  private final RomiGyro m_gyro = new RomiGyro();
-
-  // Set up the BuiltInAccelerometer
-  private final BuiltInAccelerometer m_accelerometer = new BuiltInAccelerometer();
-
   /** Creates a new Drivetrain. */
-  public Drivetrain() {
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
-    m_ringMotor.setInverted(true);
+  public BionicHand() {
 
     // Use inches as unit for encoder distances
     m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
@@ -64,10 +48,6 @@ public class Drivetrain extends SubsystemBase {
   public void runIndexMotor(double speed) {
     m_indexMotor.set(speed);
   }
-
-  // public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-  //   m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
-  // }
 
   public void resetEncoders() {
     m_leftEncoder.reset();
@@ -92,65 +72,6 @@ public class Drivetrain extends SubsystemBase {
 
   public double getAverageDistanceInch() {
     return (getLeftDistanceInch() + getRightDistanceInch()) / 2.0;
-  }
-
-  /**
-   * The acceleration in the X-axis.
-   *
-   * @return The acceleration of the Romi along the X-axis in Gs
-   */
-  public double getAccelX() {
-    return m_accelerometer.getX();
-  }
-
-  /**
-   * The acceleration in the Y-axis.
-   *
-   * @return The acceleration of the Romi along the Y-axis in Gs
-   */
-  public double getAccelY() {
-    return m_accelerometer.getY();
-  }
-
-  /**
-   * The acceleration in the Z-axis.
-   *
-   * @return The acceleration of the Romi along the Z-axis in Gs
-   */
-  public double getAccelZ() {
-    return m_accelerometer.getZ();
-  }
-
-  /**
-   * Current angle of the Romi around the X-axis.
-   *
-   * @return The current angle of the Romi in degrees
-   */
-  public double getGyroAngleX() {
-    return m_gyro.getAngleX();
-  }
-
-  /**
-   * Current angle of the Romi around the Y-axis.
-   *
-   * @return The current angle of the Romi in degrees
-   */
-  public double getGyroAngleY() {
-    return m_gyro.getAngleY();
-  }
-
-  /**
-   * Current angle of the Romi around the Z-axis.
-   *
-   * @return The current angle of the Romi in degrees
-   */
-  public double getGyroAngleZ() {
-    return m_gyro.getAngleZ();
-  }
-
-  /** Reset the gyro. */
-  public void resetGyro() {
-    m_gyro.reset();
   }
 
   @Override

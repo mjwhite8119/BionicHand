@@ -7,13 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.DigitDrive;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.BionicHand;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -26,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain m_drivetrain = new Drivetrain();
+  private final BionicHand m_hand = new BionicHand();
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
 
   // Assumes a gamepad plugged into channnel 0
@@ -61,8 +59,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Default command is arcade drive. This will run unless another command
     // is scheduled over it.
-    // m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
-    m_drivetrain.setDefaultCommand(getDigitsDriveCommand());
+    // m_hand.setDefaultCommand(getArcadeDriveCommand());
+    m_hand.setDefaultCommand(getDigitsDriveCommand());
 
     // Example of how to use the onboard IO
     Trigger onboardButtonA = new Trigger(m_onboardIO::getButtonAPressed);
@@ -71,8 +69,8 @@ public class RobotContainer {
         .onFalse(new PrintCommand("Button A Released"));
 
     // Setup SmartDashboard options
-    // m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
-    // m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
+    // m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_hand));
+    // m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_hand));
     // SmartDashboard.putData(m_chooser);
   }
 
@@ -92,12 +90,12 @@ public class RobotContainer {
    */
   // public Command getArcadeDriveCommand() {
   //   return new ArcadeDrive(
-  //       m_drivetrain, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(2));
+  //       m_hand, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(2));
   // }
 
   public Command getDigitsDriveCommand() {
     return new DigitDrive(
-        m_drivetrain, () -> -m_controller.getRawAxis(0),
+        m_hand, () -> -m_controller.getRawAxis(0),
                       () -> -m_controller.getRawAxis(1), 
                       () -> -m_controller.getRawAxis(2),
                       () -> -m_controller.getRawAxis(3));

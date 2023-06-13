@@ -4,12 +4,12 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.BionicHand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.Supplier;
 
 public class DigitDrive extends CommandBase {
-  private final Drivetrain m_drivetrain;
+  private final BionicHand m_hand;
   private final Supplier<Double> m_pinkSupplier;
   private final Supplier<Double> m_ringSupplier;
   private final Supplier<Double> m_middleSupplier;
@@ -24,13 +24,13 @@ public class DigitDrive extends CommandBase {
    * @param zaxisRotateSupplier Lambda supplier of rotational speed
    */
   public DigitDrive(
-      Drivetrain drivetrain,
+      BionicHand drivetrain,
       Supplier<Double> pinkSupplier,
       Supplier<Double> ringSupplier,
       Supplier<Double> middleSupplier,
       Supplier<Double> indexSupplier
       ) {
-    m_drivetrain = drivetrain;
+    m_hand = drivetrain;
     m_pinkSupplier = pinkSupplier;
     m_ringSupplier = ringSupplier;
     m_middleSupplier = middleSupplier;
@@ -45,11 +45,10 @@ public class DigitDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.runPinkMotor(m_pinkSupplier.get());
-    m_drivetrain.runRingMotor(m_ringSupplier.get());
-    m_drivetrain.runMiddleMotor(m_ringSupplier.get());
-    m_drivetrain.runIndexMotor(m_ringSupplier.get());
-    // m_drivetrain.arcadeDrive(m_xaxisSpeedSupplier.get(), m_zaxisRotateSupplier.get());
+    m_hand.runPinkMotor(m_pinkSupplier.get());
+    m_hand.runRingMotor(m_ringSupplier.get());
+    m_hand.runMiddleMotor(m_middleSupplier.get());
+    m_hand.runIndexMotor(m_indexSupplier.get());
   }
 
   // Called once the command ends or is interrupted.

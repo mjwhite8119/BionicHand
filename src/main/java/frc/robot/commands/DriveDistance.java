@@ -4,11 +4,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.BionicHand;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveDistance extends CommandBase {
-  private final Drivetrain m_drive;
+  private final BionicHand m_hand;
   private final double m_distance;
   private final double m_speed;
 
@@ -20,10 +20,10 @@ public class DriveDistance extends CommandBase {
    * @param inches The number of inches the robot will drive
    * @param drive The drivetrain subsystem on which this command will run
    */
-  public DriveDistance(double speed, double inches, Drivetrain drive) {
+  public DriveDistance(double speed, double inches, BionicHand drive) {
     m_distance = inches;
     m_speed = speed;
-    m_drive = drive;
+    m_hand = drive;
     addRequirements(drive);
   }
 
@@ -31,7 +31,7 @@ public class DriveDistance extends CommandBase {
   @Override
   public void initialize() {
     // m_drive.arcadeDrive(0, 0);
-    m_drive.resetEncoders();
+    m_hand.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -50,6 +50,6 @@ public class DriveDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     // Compare distance travelled from start to desired distance
-    return Math.abs(m_drive.getAverageDistanceInch()) >= m_distance;
+    return Math.abs(m_hand.getAverageDistanceInch()) >= m_distance;
   }
 }
