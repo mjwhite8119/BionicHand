@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DigitDrive;
+import frc.robot.oi.JoystickIO;
 import frc.robot.subsystems.BionicHand;
 import frc.robot.subsystems.OnBoardIO;
 import frc.robot.subsystems.OnBoardIO.ChannelMode;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -28,7 +30,12 @@ public class RobotContainer {
   private final OnBoardIO m_onboardIO = new OnBoardIO(ChannelMode.INPUT, ChannelMode.INPUT);
 
   // Assumes a gamepad plugged into channnel 0
-  private final Joystick m_controller = new Joystick(0);
+  // Use this for Logitech/PS3 controller or Xbox
+  // private final XboxController m_joystick = new XboxController(0);
+  private final Joystick m_joystick = new Joystick(0);
+
+  // Pass the appropriate controller into the IO mapping
+  private final JoystickIO m_joystickIO = new JoystickIO(m_joystick);
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -68,6 +75,10 @@ public class RobotContainer {
         .onTrue(new PrintCommand("Button A Pressed"))
         .onFalse(new PrintCommand("Button A Released"));
 
+    m_joystickIO.resetEncodersButton().onTrue(new InstantCommand(() -> {
+        m_hand.resetEncoders();
+      }, m_hand));
+      
     // Setup SmartDashboard options
     // m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_hand));
     // m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_hand));
@@ -83,21 +94,11 @@ public class RobotContainer {
     return m_chooser.getSelected();
   }
 
-  /**
-   * Use this to pass the teleop command to the main {@link Robot} class.
-   *
-   * @return the command to run in teleop
-   */
-  // public Command getArcadeDriveCommand() {
-  //   return new ArcadeDrive(
-  //       m_hand, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(2));
-  // }
-
   public Command getDigitsDriveCommand() {
     return new DigitDrive(
-        m_hand, () -> -m_controller.getRawAxis(0),
-                      () -> -m_controller.getRawAxis(1), 
-                      () -> -m_controller.getRawAxis(2),
-                      () -> -m_controller.getRawAxis(3));
+        m_hand, () -> m_joystickIO.leftAxisUpDown(),
+                () -> -m_joystickIO.leftAxisLeftRight(), 
+                () -> -m_joystickIO.rightAxisUpDown(),
+                () -> -m_joystickIO.rightAxisLeftRight());
   }
 }

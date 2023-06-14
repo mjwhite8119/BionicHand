@@ -21,15 +21,15 @@ public class BionicHand extends SubsystemBase {
 
   // The Romi has onboard encoders that are hardcoded
   // to use DIO pins 4/5 and 6/7 for the left and right
-  private final Encoder m_leftEncoder = new Encoder(4, 5);
-  private final Encoder m_rightEncoder = new Encoder(6, 7);
+  private final Encoder m_pinkEncoder = new Encoder(4, 5);
+  private final Encoder m_ringEncoder = new Encoder(6, 7);
 
   /** Creates a new Drivetrain. */
   public BionicHand() {
 
     // Use inches as unit for encoder distances
-    m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
-    m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
+    m_pinkEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
+    m_ringEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
     resetEncoders();
   }
 
@@ -50,24 +50,24 @@ public class BionicHand extends SubsystemBase {
   }
 
   public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    m_pinkEncoder.reset();
+    m_ringEncoder.reset();
   }
 
   public int getLeftEncoderCount() {
-    return m_leftEncoder.get();
+    return m_pinkEncoder.get();
   }
 
   public int getRightEncoderCount() {
-    return m_rightEncoder.get();
+    return m_ringEncoder.get();
   }
 
   public double getLeftDistanceInch() {
-    return m_leftEncoder.getDistance();
+    return m_pinkEncoder.getDistance();
   }
 
   public double getRightDistanceInch() {
-    return m_rightEncoder.getDistance();
+    return m_ringEncoder.getDistance();
   }
 
   public double getAverageDistanceInch() {
