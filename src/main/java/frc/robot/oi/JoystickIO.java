@@ -59,74 +59,74 @@ public class JoystickIO {
     return m_controller.getRawAxis(3);
   }
 
-  public double xAxisSpeed() {
-    return m_controller.getRawAxis(1);
-  }
+  // public double xAxisSpeed() {
+  //   return m_controller.getRawAxis(1);
+  // }
 
-  public double zAxisRotate() {
-    if (m_controller.getClass() == XboxController.class) {
-      return m_controller.getRawAxis(4);
-    } else {
-      return m_controller.getRawAxis(2);
-    }       
-  }
+  // public double zAxisRotate() {
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     return m_controller.getRawAxis(4);
+  //   } else {
+  //     return m_controller.getRawAxis(2);
+  //   }       
+  // }
 
-  public double xAxisBoostSpeed() {
-    // Default to PS3
-    double boostValue = mapRange(-1, 1, 0, 1, m_controller.getRawAxis(3));
-    double mainAxisPercent = 0.75;
+  // public double xAxisBoostSpeed() {
+  //   // Default to PS3
+  //   double boostValue = mapRange(-1, 1, 0, 1, m_controller.getRawAxis(3));
+  //   double mainAxisPercent = 0.75;
 
-    if (m_controller.getClass() == XboxController.class) {
-      boostValue = m_controller.getRawAxis(2);    
-    }
-    return xAxisSpeed() * (mainAxisPercent + (1-mainAxisPercent) * boostValue);
-  }
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     boostValue = m_controller.getRawAxis(2);    
+  //   }
+  //   return xAxisSpeed() * (mainAxisPercent + (1-mainAxisPercent) * boostValue);
+  // }
 
-  public double zAxisBoostRotate() {
-    // Default to PS3 
-    double boostValue = mapRange(-1, 1, 0, 1, m_controller.getRawAxis(4));
-    double mainAxisPercent = 0.6;
+  // public double zAxisBoostRotate() {
+  //   // Default to PS3 
+  //   double boostValue = mapRange(-1, 1, 0, 1, m_controller.getRawAxis(4));
+  //   double mainAxisPercent = 0.6;
 
-    if (m_controller.getClass() == XboxController.class) {
-      boostValue = m_controller.getRawAxis(3);
-    }
-    double boostPct = mainAxisPercent + (1-mainAxisPercent) * boostValue;
-    SmartDashboard.putNumber("boostValue", boostValue);
-    SmartDashboard.putNumber("boostPct", boostPct);
-    return zAxisRotate() * boostPct;
-  }
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     boostValue = m_controller.getRawAxis(3);
+  //   }
+  //   double boostPct = mainAxisPercent + (1-mainAxisPercent) * boostValue;
+  //   SmartDashboard.putNumber("boostValue", boostValue);
+  //   SmartDashboard.putNumber("boostPct", boostPct);
+  //   return zAxisRotate() * boostPct;
+  // }
 
-  public Trigger moveServoLeft() {
-    if (m_controller.getClass() == XboxController.class) {
-      return new JoystickButton(m_controller, XboxController.Button.kX.value);
-    } else {
-      return new JoystickButton(m_controller, Joystick.X);
-    }   
-  }
+  // public Trigger moveServoLeft() {
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     return new JoystickButton(m_controller, XboxController.Button.kX.value);
+  //   } else {
+  //     return new JoystickButton(m_controller, Joystick.X);
+  //   }   
+  // }
 
-  public Trigger moveServoRight() {
-    if (m_controller.getClass() == XboxController.class) {
-      return new JoystickButton(m_controller, XboxController.Button.kB.value);
-    } else {
-      return new JoystickButton(m_controller, Joystick.B);
-    } 
-  }
+  // public Trigger moveServoRight() {
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     return new JoystickButton(m_controller, XboxController.Button.kB.value);
+  //   } else {
+  //     return new JoystickButton(m_controller, Joystick.B);
+  //   } 
+  // }
 
-  public Trigger moveServoUp() {
-    if (m_controller.getClass() == XboxController.class) {
-      return new JoystickButton(m_controller, XboxController.Button.kY.value);
-    } else {
-      return new JoystickButton(m_controller, Joystick.Y);
-    } 
-  }
+  // public Trigger moveServoUp() {
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     return new JoystickButton(m_controller, XboxController.Button.kY.value);
+  //   } else {
+  //     return new JoystickButton(m_controller, Joystick.Y);
+  //   } 
+  // }
 
-  public Trigger moveServoDown() {
-    if (m_controller.getClass() == XboxController.class) {
-      return new JoystickButton(m_controller, XboxController.Button.kA.value);
-    } else {
-      return new JoystickButton(m_controller, Joystick.A);
-    } 
-  }
+  // public Trigger moveServoDown() {
+  //   if (m_controller.getClass() == XboxController.class) {
+  //     return new JoystickButton(m_controller, XboxController.Button.kA.value);
+  //   } else {
+  //     return new JoystickButton(m_controller, Joystick.A);
+  //   } 
+  // }
 
   public Trigger resetEncodersButton() {
       return new JoystickButton(m_controller, XboxController.Button.kStart.value);

@@ -96,9 +96,17 @@ public class RobotContainer {
 
   public Command getDigitsDriveCommand() {
     return new DigitDrive(
-        m_hand, () -> m_joystickIO.leftAxisUpDown(),
-                () -> -m_joystickIO.leftAxisLeftRight(), 
-                () -> -m_joystickIO.rightAxisUpDown(),
-                () -> -m_joystickIO.rightAxisLeftRight());
+        m_hand, () -> -m_joystick.getRawAxis(0),
+                () -> -m_joystick.getRawAxis(1), 
+                () -> -m_joystick.getRawAxis(2),
+                () -> -m_joystick.getRawAxis(3));
   }
+
+  // public Command getDigitsDriveCommand() {
+  //   return new DigitDrive(
+  //       m_hand, () -> m_joystickIO.leftAxisUpDown(),
+  //               () -> -m_joystickIO.leftAxisLeftRight(), 
+  //               () -> -m_joystickIO.rightAxisUpDown(),
+  //               () -> -m_joystickIO.rightAxisLeftRight());
+  // }
 }
