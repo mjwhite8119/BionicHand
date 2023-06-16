@@ -75,9 +75,18 @@ public class RobotContainer {
         .onTrue(new PrintCommand("Button A Pressed"))
         .onFalse(new PrintCommand("Button A Released"));
 
-    m_joystickIO.resetEncodersButton().onTrue(new InstantCommand(() -> {
-        m_hand.resetEncoders();
-      }, m_hand));
+    if (m_joystick.getRawButtonPressed(10)) {
+      new InstantCommand(() -> {
+          m_hand.resetEncoders();
+        }, m_hand);
+    }    
+    // new Trigger(m_joystick::getBackButton).onTrue(new InstantCommand(() -> {
+    //   m_hand.resetEncoders();
+    // }, m_hand));
+
+    // m_joystickIO.resetEncodersButton().onTrue(new InstantCommand(() -> {
+    //     m_hand.resetEncoders();
+    //   }, m_hand));
       
     // Setup SmartDashboard options
     // m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_hand));
