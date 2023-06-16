@@ -129,7 +129,11 @@ public class JoystickIO {
   // }
 
   public Trigger resetEncodersButton() {
+    if (m_controller.getClass() == XboxController.class) {
       return new JoystickButton(m_controller, XboxController.Button.kStart.value);
+    } else {
+      return new JoystickButton(m_controller, Joystick.START);
+    } 
   }
 
 
