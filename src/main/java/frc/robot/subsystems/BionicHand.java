@@ -52,6 +52,7 @@ public class BionicHand extends SubsystemBase {
   public void resetEncoders() {
     m_pinkEncoder.reset();
     m_ringEncoder.reset();
+    Log.writeln("resetEncoders");
   }
 
   public int getLeftEncoderCount() {
