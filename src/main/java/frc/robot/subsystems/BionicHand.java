@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.subsystems.Log;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -52,7 +53,7 @@ public class BionicHand extends SubsystemBase {
   public void resetEncoders() {
     m_pinkEncoder.reset();
     m_ringEncoder.reset();
-    Log.writeln("resetEncoders");
+    System.out.print("resetEncoders");
   }
 
   public int getLeftEncoderCount() {
