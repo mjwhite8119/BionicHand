@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DigitDrive;
 import frc.robot.oi.JoystickIO;
@@ -32,7 +33,8 @@ public class RobotContainer {
   // Assumes a gamepad plugged into channnel 0
   // Use this for Logitech/PS3 controller or Xbox
   // private final XboxController m_joystick = new XboxController(0);
-  private final Joystick m_joystick = new Joystick(0);
+  // private final Joystick m_joystick = new Joystick(0);
+  private final PS4Controller m_joystick = new PS4Controller(0);
 
   // Pass the appropriate controller into the IO mapping
   private final JoystickIO m_joystickIO = new JoystickIO(m_joystick);
@@ -75,14 +77,14 @@ public class RobotContainer {
         .onTrue(new PrintCommand("Button A Pressed"))
         .onFalse(new PrintCommand("Button A Released"));
 
-    if (m_joystick.getRawButtonPressed(10)) {
-      new InstantCommand(() -> {
-          m_hand.resetEncoders();
-        }, m_hand);
-    }    
-    // new Trigger(m_joystick::getBackButton).onTrue(new InstantCommand(() -> {
-    //   m_hand.resetEncoders();
-    // }, m_hand));
+    // if (m_joystick.getRawButtonPressed(10)) {
+    //   new InstantCommand(() -> {
+    //       m_hand.resetEncoders();
+    //     }, m_hand);
+    // }    
+    new Trigger(m_joystick::getPSButton).onTrue(new InstantCommand(() -> {
+      m_hand.resetEncoders();
+    }, m_hand));
 
     // m_joystickIO.resetEncodersButton().onTrue(new InstantCommand(() -> {
     //     m_hand.resetEncoders();
